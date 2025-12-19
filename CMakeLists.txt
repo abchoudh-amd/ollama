@@ -105,16 +105,16 @@ check_language(HIP)
 if(CMAKE_HIP_COMPILER)
     set(HIP_PLATFORM "amd")
 
-    if(NOT AMDGPU_TARGETS)
+    if(NOT GPU_TARGETS)
         find_package(hip REQUIRED)
-        list(FILTER AMDGPU_TARGETS INCLUDE REGEX "^gfx(94[012]|101[02]|1030|110[012]|120[01])$")
+        list(FILTER GPU_TARGETS INCLUDE REGEX "^gfx(94[012]|950|101[02]|1030|110[012]|120[01])$")
     endif()
 
     if(WIN32 AND WINDOWS_AMDGPU_TARGETS_EXCLUDE_REGEX)
         list(FILTER AMDGPU_TARGETS EXCLUDE REGEX ${WINDOWS_AMDGPU_TARGETS_EXCLUDE_REGEX})
     endif()
 
-    if(AMDGPU_TARGETS)
+    if(GPU_TARGETS)
         find_package(hip REQUIRED)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ml/backend/ggml/ggml/src/ggml-hip)
 
